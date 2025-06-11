@@ -1,4 +1,5 @@
 package com.library.model;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,12 +16,11 @@ verwendet werden, um Objekte in der Datenbank zu speichern
 public class Book {
 
     // Aufbau des Programms: Book, BookService, BookRepository, BookService Impl
-
     // Annotationen (zB @Id) beziehen sich immer auf das darunter stehende Feld
 
     @Id // legt Primärschlüssel fest
     @GeneratedValue(strategy = GenerationType.IDENTITY)     // legt auto Increment fest
-    private int id;
+    private Long id;
 
     @Column(length = 20, unique = true)    //field
     private String isbn;
@@ -39,7 +39,7 @@ public class Book {
         this.author = author;
     }
 
-    public Book(String isbn, String title, String author, int year) {
+    public Book(String isbn, String title, String author, Integer year) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;

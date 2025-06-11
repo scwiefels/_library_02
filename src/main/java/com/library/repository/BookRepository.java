@@ -6,13 +6,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 //zunächst muss das interface von einem anderen Interface erben(Jpa) und erwartet zwei Parameter
-public interface BookRepository extends JpaRepository<Book,Integer> {
+public interface BookRepository extends JpaRepository<Book,Long> {
 
     /**
      *findByTitleIgnoreCase - Namenskonvention: findByField
      *@param title
      * @return
-     * SELEVT * FROM book WHERE title = ....
+     * SELECT * FROM book WHERE title = ....
      */
     List<Book> findByTitleIgnoreCase(String title);
 

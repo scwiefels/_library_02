@@ -5,21 +5,26 @@
 
 ## Plan
 
-    Backend um User und Ausleihe erweitern
+    Backend um User und Ausleihe erweitern 
+    Funktionen einer Bücherei implementieren
+    
 
-# ToDos
-## Klasse User und Loan schreiben
-## UserRepository und LoanRepository schreiben
-## Services 
-## Controller
-### Passwörter verschlüsseln
-### Frontend
+## ToDos
+* UserServiceImpl - update&delete
+* L
+* LoanService
+* Controller
+* Book überarbeiten & erweitern um library-Funktionen
 
-
-
-### Feature
-
-
+## Maybe
+* Passwörter verschlüsseln
+* Frontend anbinden
+* GUI
 
 ### Umgesetzt
-    Klasse User
+* Klasse User
+* UserService erstell& implementiert(nicht fertig
+* Klasse Loan
+* LoanRepository
+
+### Feature

@@ -15,7 +15,7 @@ public class BookController {
 
     @GetMapping
     public List<Book> getAllBooks(){
-        return bookService.getAll();
+        return bookService.findAll();
     }
     //Syntax: localhost:8080/api/books/isbn/13246796347846
     @GetMapping("/isbn/{isbn}")

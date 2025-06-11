@@ -11,15 +11,16 @@ import java.util.Optional;
 /*wenn wir ein Interface benutzen, müssen alle Methoden (hier aus BookService) implementiert(=überschrieben) werden
 syntaktisch reichen dafür die geschweiften Klammern
  */
-
-@Service    /* wir können und wollen kein Objekt von einem Interface erzeugen;
+@Service
+    /* wir können und wollen kein Objekt von einem Interface erzeugen;
 um eine nullpointer-exception zu vermeiden, brauchen wir aber eins -
 das übernimmt die annotation (das framework) für uns -
 @Autowired BookService*/
 
 public class BookServiceImpl implements BookService{
-
-    @Autowired  // holt Implementierung, wenn es eine gibt/ Objekt wird erzeugt - design pattern: dependency injection
+    /* @Autowired holt Implementierung, wenn es eine gibt/
+    Objekt wird erzeugt - design pattern: dependency injection*/
+    @Autowired
     private BookRepository repository;
 
     @Override
@@ -28,22 +29,22 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public List<Book> getAll() {
+    public List<Book> findAll() {
         return repository.findAll();
     }
 
     @Override
-    public Book getById(int id) {
+    public Book findById(Long id) {
         return repository.findById(id).orElse(null);
     }
 
     @Override
-    public List<Book> getByTitle(String title) {
+    public List<Book> findByTitle(String title) {
         return repository.findByTitleContaining(title);
     }
 
     @Override
-    public Book updateByTitle(int id, String newTitle) {
+    public Book updateByTitle(Long id, String newTitle) {
         Optional<Book> o = repository.findById(id);
         if(o.isPresent()) {
             Book b = o.get();
@@ -54,12 +55,10 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public void delete(int id) {
-        // Optional<Book> o = repository.findById(id);
-        // if (o.isPresent()){
-        // repository.delete(o.get());
-        // }
-        // else System.out.println("Id not found.");
+    public void delete(Long id) {
+        if (!repository.existsById(id)){
+            throw new RuntimeException("Book not found!");
+        }
         repository.deleteById(id);
 
     }
@@ -67,8 +66,8 @@ public class BookServiceImpl implements BookService{
     /*Die Methode ist noch nicht perfekt, mit "fix me" und "to do" kann man
     solche Stellen markieren - per View, Tool Windows, "to do" lassen sie sich anzeigen*/
     @Override
-    public Book update(int id, Book book) {
-        Book b = getById(id);
+    public Book update(Long id, Book book) {
+        Book b = findById(id);
         if (b!=null){   //FIXME Fields prüfen!
             b.setIsbn(book.getIsbn());
             b.setTitle(book.getTitle());

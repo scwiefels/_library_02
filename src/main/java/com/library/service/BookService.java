@@ -4,19 +4,15 @@ import com.library.model.Book;
 import java.util.List;
 
 
-public interface BookService {Book save(Book book);
+public interface BookService {
 
-    List<Book> getAll();
+    Book save(Book book);
+    List<Book> findAll();
+    Book findById(Long id);
+    Book update(Long id, Book book);
+    void delete (Long id);
 
-    Book getById(int id);
-
-    List<Book> getByTitle(String title);
-
-    Book updateByTitle(int id, String newTitle);
-
-    void delete (int id);
-
-    Book update(int id, Book book);
-
+    List<Book> findByTitle(String title);
+    Book updateByTitle(Long id, String newTitle);
     Book findByISBN(String isbn);
 }
