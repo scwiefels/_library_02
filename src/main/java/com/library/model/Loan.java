@@ -18,34 +18,46 @@ import java.time.LocalDate;
 public class Loan {
 
     @Id
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long bookId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    @Column(nullable = false)
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_id", nullable = false)
+    private Book book;
 
-    @Column(nullable = false)
-    @Builder.Default
-    private LocalDate borrowDate = LocalDate.now();
+    @Column(name = "loan_date", nullable = false)
+    private LocalDate loanDate;
 
-    @Column(nullable = false)
+    @Column(name = "due_date", nullable = false)
     private LocalDate dueDate;
 
+    @Column(name = "return_date")
     private LocalDate returnDate;
 
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
     @Builder.Default
-    private Boolean returned = false;
+    private LoanStatus status = LoanStatus.ACTIVE;
 
-    public Loan(Long id, Long userId, LocalDate borrowDate, LocalDate dueDate, Boolean returned) {
-        this.id = id;
-        this.userId = userId;
-        this.borrowDate = borrowDate;
-        this.dueDate = dueDate;
-        this.returned = false;
+    public boolean isOverdue() {
+        return status == LoanStatus.ACTIVE &&
+                dueDate != null &&
+                LocalDate.now().isAfter(dueDate);
+    }
+
+    public void returnBook() {
+        this.returnDate = LocalDate.now();
+        this.status = LoanStatus.RETURNED;
+    }
+
+    public void extendLoan(int days) {
+        if (status == LoanStatus.ACTIVE && days > 0) {
+            this.dueDate = this.dueDate.plusDays(days);
+        }
     }
 
 }

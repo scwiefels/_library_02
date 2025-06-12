@@ -11,8 +11,7 @@
 
 ## ToDos
 * UserServiceImpl - update&delete
-* L
-* LoanService
+* LoanServiceImpl fertig machen
 * Controller
 * Book überarbeiten & erweitern um library-Funktionen
 
@@ -23,8 +22,9 @@
 
 ### Umgesetzt
 * Klasse User
-* UserService erstell& implementiert(nicht fertig
+* UserService erstell& implementiert (nicht fertig
 * Klasse Loan
 * LoanRepository
+* LoanService
 
 ### Feature
