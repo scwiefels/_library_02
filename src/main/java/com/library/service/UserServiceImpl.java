@@ -21,21 +21,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
+
         return userRepository.save(user);
     }
 
     @Override
     public List<User> findAll() {
+
         return userRepository.findAll();
     }
 
     @Override
     public Optional<User> findById(Long id) {
+
         return userRepository.findById(id);
     }
 
     @Override   //TODO update und delete schreiben
     public User update(User user) {
+
         return null;
     }
 
