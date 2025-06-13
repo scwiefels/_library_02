@@ -15,9 +15,11 @@ import java.util.List;
 
 public class BookController {
 
+    private final BookService bookService;
 
-    @Autowired
-    private BookService bookService;
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     @GetMapping
     public List<Book> findAllBooks(){
@@ -38,8 +40,8 @@ public class BookController {
     }
 
     @PostMapping
-    public Book createBook(@RequestBody Book book) {
-        System.out.println("SaveBook");
+    public Book save(@RequestBody Book book) {
+        System.out.println("Save book: " + book);
         return bookService.save(book);
     }
 }

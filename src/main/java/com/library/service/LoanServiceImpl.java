@@ -29,22 +29,25 @@ public class LoanServiceImpl implements LoanService {
 
 
     @Override   //FIXME Validierung
-    public Loan createLoan(User user, Book book, int loanPeriodDays) {
-        log.info("Erstelle neue Ausleihe für " +
-                "Benutzer {} und Buch {}", user.getId(), book.getId());
+    public Loan save(Loan loan){
+        return loanRepository.save(loan);
 
-        Loan loan = Loan.builder()
-                .user(user)
-                .book(book)
-                .loanDate(LocalDate.now())
-                .dueDate(LocalDate.now().plusDays(loanPeriodDays))
-                .status(LoanStatus.ACTIVE)
-                .build();
-
-        Loan savedLoan = loanRepository.save(loan);
-        log.info("Ausleihe erfolgreich erstellt mit ID: {}", savedLoan.getId());
-
-        return savedLoan;
+//    public Loan save(User user, Book book, int loanPeriodDays) {
+//        log.info("Erstelle neue Ausleihe für " +
+//                "Benutzer {} und Buch {}", user.getId(), book.getId());
+//
+//        Loan loan = Loan.builder()
+//                .user(user)
+//                .book(book)
+//                .loanDate(LocalDate.now())
+//                .dueDate(LocalDate.now().plusDays(loanPeriodDays))
+//                .status(LoanStatus.ACTIVE)
+//                .build();
+//
+//        Loan savedLoan = loanRepository.save(loan);
+//        log.info("Ausleihe erfolgreich erstellt mit ID: {}", savedLoan.getId());
+//
+//        return savedLoan;
     }
 
     @Override

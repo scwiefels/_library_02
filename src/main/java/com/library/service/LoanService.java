@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface LoanService {
 
-    Loan createLoan(User user, Book book, int loanPeriodDays);
+    Loan save(Loan loan);
     Loan cancelLoan(Long loanId);
 
     List<Loan> findAllLoans();
