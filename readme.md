@@ -1,4 +1,4 @@
-# Library RestAPI Version 01
+# Library RestAPI Version 02
 
     Backend um Bücher zu verwalten wurde gemeinsam entwickelt
     Struktur: model,repository,service,controller
@@ -10,9 +10,11 @@
     
 
 ## ToDos
+* Tests
+* Exceptions
+* DTO
 * UserServiceImpl - update&delete
 * LoanServiceImpl fertig machen
-* Controller für User & Loan schreiben
 * Book überarbeiten & erweitern um library-Funktionen
 
 ## Maybe
@@ -26,5 +28,7 @@
 * Klasse Loan
 * LoanRepository
 * LoanService
+* Controller für User & Loan schreiben
+
 
 ### Feature

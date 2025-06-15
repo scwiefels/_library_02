@@ -34,52 +34,52 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public Book findById(Long id) {
-        return repository.findById(id).orElse(null);
+    public Book findById(Long bookId) {
+        return repository.findById(bookId).orElse(null);
     }
 
-    @Override
-    public List<Book> findByTitle(String title) {
-        return repository.findByTitleContaining(title);
-    }
-
-    @Override
-    public Book updateByTitle(Long id, String newTitle) {
-        Optional<Book> o = repository.findById(id);
-        if(o.isPresent()) {
-            Book b = o.get();
-            b.setTitle(newTitle);
-            repository.save(b);
-        }
-        return null;
-    }
-
-    @Override
-    public void delete(Long id) {
-        if (!repository.existsById(id)){
-            throw new RuntimeException("Book not found!");
-        }
-        repository.deleteById(id);
-
-    }
-
-    /*Die Methode ist noch nicht perfekt, mit "fix me" und "to do" kann man
-    solche Stellen markieren - per View, Tool Windows, "to do" lassen sie sich anzeigen*/
-    @Override
-    public Book update(Long id, Book book) {
-        Book b = findById(id);
-        if (b!=null){   //FIXME Fields prüfen!
-            b.setIsbn(book.getIsbn());
-            b.setTitle(book.getTitle());
-            b.setAuthor(book.getAuthor());
-            b.setYear(book.getYear());
-            return repository.save(book); //save wirkt wie update
-        }
-        return null;
-    }
-
-    @Override
-    public Book findByISBN(String isbn) {
-        return repository.findByIsbnIgnoreCase(isbn);
-    }
+//    @Override
+//    public List<Book> findByTitle(String title) {
+//        return repository.findByTitleContaining(title);
+//    }
+//
+//    @Override
+//    public Book updateByTitle(Long id, String newTitle) {
+//        Optional<Book> o = repository.findById(id);
+//        if(o.isPresent()) {
+//            Book b = o.get();
+//            b.setTitle(newTitle);
+//            repository.save(b);
+//        }
+//        return null;
+//    }
+//
+//    @Override
+//    public void delete(Long id) {
+//        if (!repository.existsById(id)){
+//            throw new IllegalArgumentException("Book not found!");
+//        }
+//        repository.deleteById(id);
+//
+//    }
+//
+//    /*Die Methode ist noch nicht perfekt, mit "fix me" und "to do" kann man
+//    solche Stellen markieren - per View, Tool Windows, "to do" lassen sie sich anzeigen*/
+//    @Override
+//    public Book update(Long id, Book book) {
+//        Book b = findById(id);
+//        if (b!=null){   //FIXME Fields prüfen!
+//            b.setIsbn(book.getIsbn());
+//            b.setTitle(book.getTitle());
+//            b.setAuthor(book.getAuthor());
+//            b.setYear(book.getYear());
+//            return repository.save(book); //save wirkt wie update
+//        }
+//        return null;
+//    }
+//
+//    @Override
+//    public Book findByISBN(String isbn) {
+//        return repository.findByIsbnIgnoreCase(isbn);
+//    }
 }

@@ -20,7 +20,11 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long userId;
+
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<Loan> loans = new ArrayList<>();
 
     @Column(length = 20, nullable = false)
     private String userName;
@@ -31,20 +35,12 @@ public class User {
     @Column(nullable = false)
     private String  password;   //TODO Passwort verschlüsseln, Regeln festlegen
 
-    @ElementCollection
-    @CollectionTable(name = "user_borrowed_books", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "book_id")
-    @Builder.Default
-    private List<Long> borrowedBookIds = new ArrayList<>();
-
-    //TODO Verbindung zu LOAN
 
 
     public User(String userName, String email, String password){
         this.userName = userName;
         this.email = email;
         this.password = password;
-        this.borrowedBookIds = new ArrayList<>();
     }
 
 }

@@ -7,12 +7,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/*RestFull-HTTP Methoden
+/*Rest-HTTP Methoden
  * -get  -> zum lesen (z.B. über Browser testen/aufrufen)
  * -post -> zum speichern
  * -put  -> für Update
  * -delete -> löschen*/
 
+@RequestMapping("/api/books")
 public class BookController {
 
     private final BookService bookService;
@@ -25,24 +26,27 @@ public class BookController {
     public List<Book> findAllBooks(){
         return bookService.findAll();
     }
-    //Syntax: localhost:8080/api/books/isbn/13246796347846
-    @GetMapping("/isbn/{isbn}")
-    public Book findByISBN(@PathVariable("isbn")String isbn){
-        return bookService.findByISBN(isbn);
 
+    @GetMapping("{/bookId}")
+    public Book findById(@PathVariable("bookId") Long bookId){
+        return bookService.findById(bookId);
     }
-
-    //Syntax alternativ: localhost:8080/api/books?isbn=13246796347846
-    @GetMapping(params = "isbn")
-    public Book findByISBN2(@RequestParam("isbn")String isbn){
-        return bookService.findByISBN(isbn);
-
-    }
-
     @PostMapping
     public Book save(@RequestBody Book book) {
         System.out.println("Save book: " + book);
         return bookService.save(book);
     }
+
+
+    //Syntax: localhost:8080/api/books/isbn/13246796347846
+    ////    @GetMapping("/isbn/{isbn}")
+    ////    public Book findByISBN(@PathVariable("isbn")String isbn){
+    ////        return bookService.findByISBN(isbn);
+    ////    }
+    ////    Syntax alternativ: localhost:8080/api/books?isbn=13246796347846
+    ////    @GetMapping(params = "isbn")
+    ////    public Book findByISBN2(@RequestParam("isbn")String isbn){
+    ////        return bookService.findByISBN(isbn);
+    ////    }
 }
 

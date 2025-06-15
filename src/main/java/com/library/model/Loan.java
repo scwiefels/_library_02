@@ -19,14 +19,14 @@ public class Loan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long loanId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "users_id", nullable = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_id", nullable = false)
+    @JoinColumn(name = "books_id", nullable = false)
     private Book book;
 
     @Column(name = "loan_date", nullable = false)
@@ -43,21 +43,6 @@ public class Loan {
     @Builder.Default
     private LoanStatus status = LoanStatus.ACTIVE;
 
-    public boolean isOverdue() {
-        return status == LoanStatus.ACTIVE &&
-                dueDate != null &&
-                LocalDate.now().isAfter(dueDate);
-    }
 
-    public void returnBook() {
-        this.returnDate = LocalDate.now();
-        this.status = LoanStatus.RETURNED;
-    }
-
-    public void extendLoan(int days) {
-        if (status == LoanStatus.ACTIVE && days > 0) {
-            this.dueDate = this.dueDate.plusDays(days);
-        }
-    }
 
 }

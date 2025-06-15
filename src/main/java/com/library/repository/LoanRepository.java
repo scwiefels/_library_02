@@ -25,6 +25,7 @@ public interface LoanRepository extends JpaRepository<Loan,Long> {
 
     boolean existsByUserAndBookAndStatus(User user, Book book, LoanStatus status);
 
-    @Query("SELECT l FROM Loan WHERE l.returned = false AND l.dueDate < :currentDate")
-    List<Loan> findOverdueLoans(@Param("currentDate") LocalDate currentDate);
+    @Query("SELECT l FROM Loan l WHERE l.status = :status AND l.dueDate < :currentDate")
+    List<Loan> findOverdueLoans(@Param("status") LoanStatus status,
+            @Param("currentDate") LocalDate currentDate);
 }

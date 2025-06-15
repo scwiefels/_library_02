@@ -1,16 +1,23 @@
 package com.library.controller;
 
 
+import com.library.dto.CreateLoanRequest;
 import com.library.model.Loan;
-import com.library.model.User;
 import com.library.service.LoanService;
-import org.springframework.http.HttpStatus;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("api/loans")
+
+/*zuständig für HTTP Handling (Haupt-Endpoints)
+    POST /api/loans - Neue Ausleihe
+    PUT /api/loans/{id}/return - Rückgabe
+    GET /api/loans/overdue - Überfällige Ausleihen*/
+
 public class LoanController {
 
     private final LoanService loanService;
@@ -25,9 +32,29 @@ public class LoanController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)    // 201 no content als Basis für erfolgreiche Erstellung
-    public Loan save(@RequestBody Loan loan) {
-        System.out.println("Save loan: " + loan);
-        return loanService.save(loan);
+    public ResponseEntity<Loan> save(@Valid @RequestBody CreateLoanRequest request) {
+        Loan loan = loanService.save(
+                request.getBookId(),
+                request.getUserId(),
+                request.getLoanPeriodInDays());
+        return ResponseEntity.ok(loan);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Loan> findById(@PathVariable Long loanId) {
+        return loanService.findById(loanId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+//
+//    @PutMapping("/{id}/return")
+//    public ResponseEntity<Loan> returnBook(@PathVariable Long id, @RequestBody Loan loan) {
+//        return ResponseEntity.ok(loanService.returnBook(id));
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Loan> cancelLoan(@PathVariable Long id) {
+//        loanService.delete(id);
+//        return ResponseEntity.noContent().build();
+//    }
 }

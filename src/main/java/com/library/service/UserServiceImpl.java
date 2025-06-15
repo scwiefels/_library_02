@@ -32,9 +32,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
+    public Optional<User> findById(Long userId) {
 
-        return userRepository.findById(id);
+        return userRepository.findById(userId);
     }
 
     @Override   //TODO update und delete schreiben
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(Long userId) {
 
     }
 }

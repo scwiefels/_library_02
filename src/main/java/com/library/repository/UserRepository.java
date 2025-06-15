@@ -12,7 +12,5 @@ public interface UserRepository extends JpaRepository<User,Long> {
     List<User> findByNameContainingIgnoreCase(String userName);
     Optional<User> findByEmail(String email);
     boolean existsByEmail(String email);
-
-    @Query("SELECT u FROM User u WHERE SIZE(u.borrowedBookIds) > 0")
     List<User> findUsersWithBorrowedBooks();
 }
